@@ -3,7 +3,7 @@
 This repository contains the perl scripts, written by Julie M. Cridland, used in 'Identifying candidate de novo genes expressed in the somatic female reproductive tract of *Drosophila melanogaster*.' The pipeline summarized in the wrapper is a modified version of the one used in ['Population biology of accessory gland-expressed de novo genes in Drosophila melanogaster'](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8733444/pdf/iyab207.pdf).
 Scripts are numbered in the order they are used in the python wrapper, __wrapper.py__. This wrapper includes some intermediate steps that are not included in the scripts themselves.
 
-## ![Pipeline Flowchart](flowchart3.png)
+## ![Pipeline Flowchart](https://raw.githubusercontent.com/kaelom/Dmel_DNG_Pipeline_2023/main/flowchart.png)
 
 
 1. updated_parse_trinity_transcripts.pl
