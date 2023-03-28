@@ -34,10 +34,7 @@ The wrapper was utilized by calling it from the command line like so:
 ``` 
 
 In addition to the perl scripts above, the following programs were also used:
-bash
-BLAST
-HISAT2
-Stringtie
+bash, BLAST, HISAT2, Stringtie
 
 Other input files:
 Assembled transcript.
