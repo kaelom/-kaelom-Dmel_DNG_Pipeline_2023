@@ -69,8 +69,9 @@ def runblast(fasta, base, db, output): #General blast command - in this case, us
     for entry in yotoblast:
         if entry.is_file():
             if ".nto" in str(entry) and "fasta" not in str(entry):
-                yostuff = entry.name[0:-4]
-                yoblastdbs.append(yostuff)
+                if "melanogaster" not in str(entry):
+                    yostuff = entry.name[0:-4]
+                    yoblastdbs.append(yostuff)
     onlyyobds = list(set(yoblastdbs))
 
     for yo in onlyyobds:
