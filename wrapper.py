@@ -22,6 +22,7 @@ parser.add_argument("-t",type=str,default=1,required=False,help="TPM cutoff.")
 parser.add_argument("-p",type=int,default=80,required=False,help="Percent alignment...") 
 parser.add_argument("-v",type=int,default=100,required=False,help="... over how many base pairs.")
 parser.add_argument("-k",type=int,default=5000,required=False,help="Desired length (bp) around target region for synteny check.")
+parser.add_argument("-m",type=int,default=250,required=False,help="Minimum distance a candidate must be from the next candidate.")
 
 args = parser.parse_args()
 
@@ -175,9 +176,9 @@ def makerecordtable(base, perc, over, tpm, output):  # Take the screened record 
             subprocess.run(rtcmd,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     # TABLE COLUMNS FROM LEFT TO RIGHT: AG, Transcript ID, Gene Length, Chromosome, Start, Stop, Exon Start, Exon Stop
     
-def checkanddrop(base, perc, over, output): # Ensure that candidates are 500bp away from ONE ANOTHER and shorter than 300bp part - drop if not.
+def checkanddrop(base, perc, over, output, mindist): # Ensure that candidates are 500bp away from ONE ANOTHER and shorter than 300bp part - drop if not.
     tabledir = "tables_{0}".format(base)
-    cdcmd = "perl /home/juliecridland/scripts/sort_distances_and_count_chrom_Female_reproductive.pl {4}{0}/{1}.{2}_{3}_candidates.record.table test_inter {4}{0}/sorted_{1}.{2}_{3}_candidates".format(tabledir, base, perc, over, output)
+    cdcmd = "perl /home/juliecridland/scripts/sort_distances_and_count_chrom_Female_reproductive.pl {4}{0}/{1}.{2}_{3}_candidates.record.table {5} test_inter {4}{0}/sorted_{1}.{2}_{3}_candidates".format(tabledir, base, perc, over, output, mindist)
     subprocess.run(cdcmd,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
 def makenewfasta(base, perc, over, output): #Create a new fasta.
@@ -244,7 +245,7 @@ catgtfs(args.b, args.g, args.p, args.v, args.o)
 runstringtie(args.b, args.p, args.v, args.o)
 maketabletwo(args.b, args.t, args.o)
 makerecordtable(args.b, args.p, args.v, args.t, args.o)
-checkanddrop(args.b, args.p, args.v, args.o)
+checkanddrop(args.b, args.p, args.v, args.o, args.m)
 makenewfasta(args.b, args.p, args.v, args.o)
 finalblast(args.b, args.p, args.v, args.o, args.r)
 syntenycheck(args.b, args.p, args.v, args.o)
