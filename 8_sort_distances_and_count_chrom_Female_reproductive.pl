@@ -3,9 +3,12 @@
 use strict;
 
 my $in1 = shift(@ARGV) or die;
+my $drop = shift(@ARGV) or die; #the distance to drop candidates if they are this close or closer
 my $t = shift(@ARGV) or die;
 my $output = shift(@ARGV) or die;
 unlink(qq{$output});
+
+
 
 my %ch = ();
 my %pos = ();
@@ -89,10 +92,10 @@ open(A, "<$t");
      $list{$a[1]} = 1;
      if($previous == 1){ ##the previous one was too close
 	 $drop{$a[1]} = 1; #drop the current one too
-	 if($a[5] >= 500){
+	 if($a[5] >= $drop){
 	     $previous = 0; #next one is good
 	     next LOOP;
-	 }elsif(($a[5] < 500) and ($a[5] ne -99)){
+	 }elsif(($a[5] < $drop) and ($a[5] ne -99)){
 	     $previous = 1; #next one is also too close
 	     next LOOP;
 	 }elsif($a[5] eq -99){
@@ -100,10 +103,10 @@ open(A, "<$t");
 	     next LOOP;
 	 }
      }elsif($previous == 0){
-	 if($a[5] >= 500){ #next one is fine
+	 if($a[5] >= $drop){ #next one is fine
 	     $previous = 0;
 	     next LOOP;
-	 }elsif(($a[5] < 500) and ($a[5] ne -99)){
+	 }elsif(($a[5] < $drop) and ($a[5] ne -99)){
 	     $drop{$a[1]} = 1;
 	     $previous = 1;
 	     next LOOP;
