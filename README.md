@@ -5,7 +5,6 @@ Scripts are numbered in the order they are used in the python wrapper, __wrapper
 
 ## ![Pipeline Flowchart](https://raw.githubusercontent.com/kaelom/Dmel_DNG_Pipeline_2023/main/flowchart.png)
 
-
 1. updated_parse_trinity_transcripts.pl
 2. screen_candidates_by_gene_distance.pl
 3. sort_RALL_positions.pl
